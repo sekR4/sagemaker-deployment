@@ -3,3 +3,4 @@ matplotlib
 sklearn
 nltk
 bs4
+torch
