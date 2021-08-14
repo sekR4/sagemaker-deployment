@@ -66,7 +66,10 @@ def output_fn(prediction_output, accept):
 
 
 def predict_fn(input_data, model):
+    """Assuming ´input_data´ is a string."""
     print("Inferring sentiment of input data.")
+    print(type(input_data))
+    print(input_data)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -78,8 +81,10 @@ def predict_fn(input_data, model):
     #         data_X   - A sequence of length 500 which represents the converted review
     #         data_len - The length of the review
 
-    data_X = None
-    data_len = None
+    data_X = convert_and_pad(
+        word_dict=model.word_dict, sentence=review_to_words(input_data)
+    )[0]
+    data_len = len(review_to_words(input_data))
 
     # Using data_X and data_len we construct an appropriate input tensor. Remember
     # that our model expects input data of the form 'len, review[500]'.
