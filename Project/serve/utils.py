@@ -1,14 +1,12 @@
+import glob
+import os
+import pickle
+import re
+
 import nltk
+from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
-
-import re
-from bs4 import BeautifulSoup
-
-import pickle
-
-import os
-import glob
 
 
 def review_to_words(review):
