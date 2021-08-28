@@ -67,10 +67,7 @@ def output_fn(prediction_output, accept):
 
 
 def predict_fn(input_data: str, model) -> int:
-    """Assuming ´input_data´ is a string."""
     print("Inferring sentiment of input data.")
-    print(type(input_data))
-    print(input_data)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -81,8 +78,6 @@ def predict_fn(input_data: str, model) -> int:
         word_dict=model.word_dict, sentence=review_to_words(input_data)
     )
 
-    # Using data_X and data_len we construct an appropriate input tensor. Remember
-    # that our model expects input data of the form 'len, review[500]'.
     data_pack = np.hstack((data_len, data_X))
     data_pack = data_pack.reshape(1, -1)
 
@@ -92,13 +87,10 @@ def predict_fn(input_data: str, model) -> int:
     # Make sure to put the model into evaluation mode
     model.eval()
 
-    # TODO: Compute the result of applying the model to the input data.
-    # The variable `result` should be a numpy array which contains a single
-    # integer which is either 1 or 0
-
     # Disable grad
     with torch.no_grad():
-
-        result = round(model(data))  # unclear what type & shape the output might have
+        
+        # `model(data)` returns a tensor, containing predictions
+        result = int(np.round(model(data).cpu().numpy()))
 
     return result
