@@ -102,7 +102,3 @@ def predict_fn(input_data: str, model) -> int:
         result = round(model(data))  # unclear what type & shape the output might have
 
     return result
-
-
-# if __name__ == "__main__":
-#     print(help(nn.Sigmoid()))
